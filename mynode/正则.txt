@@ -1,0 +1,34 @@
+正则表达式
+特殊符号：  | 或  ，  () 分组   ，  ^ 开头  ，  $结尾   ，  -连字符
+量词：
+   ?   0或1
+   +   1或1+
+   *   任意
+   {n}   n
+   {n,}  n或n+
+   {n,m} n到m
+字符：
+   [..]  允许匹配
+   [^..] 不允许匹配
+   .   [^\r\n]非换行和回车
+   \d    [0-9]数字
+   \D    [^0-9]非数字
+   \s    [\t\n\xOB\f\r]任意空白
+   \S    [^\t\n\xOB\f\r]非空白
+   \w    [a-zA-Z0-9]
+创建正则的方法：
+   1) var regExp=/Chrome\/([\d\.]*)/g;
+   2) var regExp=new RegExp("Chrome\/([\d\.]*)",g);//该方法可以用变量加入到字符串中，作为正则；
+正则使用的方法：
+   1) regExp.test(变量);   返回true/false
+   2) 变量-字符串.match(regExp);    返回匹配到的内容的对象。object[0]==匹配的内容,object[1~..]==() 每对括号(分组),object.input==变量
+   3) regExp.exec(变量);     返回数组arr，arr[0]==匹配的内容，arr[1~..]==() 每对括号(分组)
+     例子： 
+       var num = 66.77;  //数字
+       var match_num = num.toString().match(/(\d+)\.(\d+)/);//["66.77", "66", "77", index: 2, input: "66.77", groups: undefined]
+       var exec_num = /(\d+)\.(\d+)/.exec(num); //["66.77", "66", "77", index: 2, input: "66.77", groups: undefined]
+     
+       var str = "啊啊66.77";  //字符串
+       var match_str = num.match(/(\d+)\.(\d+)/);//["66.77", "66", "77", index: 2, input: "啊啊88.99", groups: undefined]
+       var exec_str = /(\d+)\.(\d+)/.exec(num); //["66.77", "66", "77", index: 2, input: "啊啊88.99", groups: undefined]
+     
