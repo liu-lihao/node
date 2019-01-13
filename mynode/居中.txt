@@ -1,5 +1,11 @@
-��ֱ���У�
-	��Ԫ��display:flex;��Ԫ��align-self:center;���������˵���Ԫ�زŻ���У�
-	��Ԫ��ֱ�ӣ�#box { display:flex;align-items:center }
-	��Ԫ����ԣ� ��Ԫ�ؾ��Զ�λ��top/left:50%;transform:translate(-50%,-50%);
-	��Ԫ��display:table; ��Ԫ��:display:table-cell;vertical-align:middle;
+水平垂直居中：
+1、已知高宽，绝对定位top/left:50%，margin-top/left:-一半;
+2、已知高宽，绝对定位top/left/right/bottom:0，margin:auto;
+3、绝对定位top/left:50%，transform:translate(-50%,-50%);
+4、wrap元素绝对定位top/left:50%，目标元素margin-top/left:-50%;
+5、父元素display:flex;justify-content:center;align-items:center;（或子元素align-self:center）
+6、父元素display:table;，wrap元素display:table-cell;vertical-align:middle;，目标元素margin:0 auto;
+注意：3、方法的translate(-50%,-50%);前者为x(横)方向，后者为y(纵)方向。
+     5、display:flex；默认flex-direction:row，
+        所以justify-content:center;align-items:center;，前者水平居中，后者垂直居中。
+        若flex-direction：column，则相反。
