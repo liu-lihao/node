@@ -117,7 +117,7 @@ var box = new Vue({
                     this.losContent_img = true;
                     this.losContent_img_src = localStorage.getItem(temp);
                 }else{
-                    if(/\.md$/.test(temp)){
+                    if(/\.mdllh$/.test(temp)){
                         this.md_flag = true;
                         this.losContent = marked(localStorage.getItem(temp));
                     }else{
