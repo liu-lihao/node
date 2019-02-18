@@ -12,6 +12,7 @@
             target: "https://liu-lihao.github.io/node/mynode/"
         },
         data: `
+tool.md
 vue查漏补缺.txt
 JavaScript原型链.png
 正则.txt
@@ -27,6 +28,7 @@ JavaScript高级程序设计（第3版）非扫描版.pdf
     }
 </script>
 <link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="./md.default.css">
 <body>
     <div id="box">
         <headerr @click.native='headertest'></headerr>
@@ -42,13 +44,6 @@ JavaScript高级程序设计（第3版）非扫描版.pdf
                         >
                             {{ index+1 }}
                         </span>
-                        <!-- <a 
-                            :href="t`rget + n" 
-                            @touchstart='handleTouchStart(index,$event)' 
-                            @touchmove='handleTouchMove'
-                            @touchend='handleTouchEnd'
-                        > -->
-                        <!-- :href="target + n.title"  -->
                         <a 
                             :class="['wrap_li_a',n.islos ? 'wrap_li_a_los' : '']"
                             @click="handlerA({'index':index,'islos':n.islos})"
@@ -61,7 +56,10 @@ JavaScript高级程序设计（第3版）非扫描版.pdf
                 </div>
             </ul>
             <div v-show="losContentFlag" class="losc">
-                {{this.losContent}}
+                <div class="box-marked" v-html="this.losContent" v-show="md_flag"></div>
+                <img :src="losContent_img_src" alt="" v-show="losContent_img">
+                {{(losContent_img || md_flag) ? "" : this.losContent}}
+                
             </div>
         </div>
         <footerr :los-content-flag="losContentFlag" @returntolist="returntolist"></footerr>
@@ -74,6 +72,15 @@ JavaScript高级程序设计（第3版）非扫描版.pdf
         </div>
     </div>
 </body>
+<script src="highlight.js"></script>
+<script src="marked.js"></script>
+<script>
+marked.setOptions({
+    highlight: function (code) {
+        return hljs.highlightAuto(code).value;
+    }
+});
+</script>
 <script src="vue.js"></script>
 <script src="longpress.js"></script>
 <script src="index.js"></script>
