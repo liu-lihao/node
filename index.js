@@ -71,13 +71,17 @@ var box = new Vue({
         },
         addlos(index) {
             const temp = this.filename[index].title;
+            console.log(temp);
+            console.log(this.checkFileNameType(temp));
             if(this.checkFileNameType(temp)=="img"){
                 this.imgToBese64(this.target + temp).then(res=>{
                     localStorage.setItem(temp,res);
                     this.filename[index].islos = true;
                 });
             }else {
+                
                 this.ajax('get',this.target + temp).then((res) =>{
+
                     localStorage.setItem(temp,res);
                     this.filename[index].islos = true;
                 }).catch( (res)=>{
@@ -143,7 +147,7 @@ var box = new Vue({
         checkFileNameType(temp){
             //返回 true (txt/md)、 img(图片格式) 、 false（双非）
             const lowercase_type = /.(\w+)$/.exec(temp)[1].toLocaleLowerCase;
-            const allow_word = ['txt','md'];
+            const allow_word = ['txt','mdllh'];
             const allow_img = ['png','webp','jpg','gif','bmp','jpeg'];
             let allow_flag = false; 
             allow_word.forEach(item=>{
@@ -151,7 +155,7 @@ var box = new Vue({
                     allow_flag = true;
                 }
             });
-            if(allow_flag){
+            if(!allow_flag){
                 allow_img.forEach(item=>{
                     if( item.toLocaleLowerCase == lowercase_type){
                         allow_flag = 'img';
