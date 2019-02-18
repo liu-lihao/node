@@ -1,0 +1,36 @@
+# Array.prototype.reduce()
+
+一直听说`reduce()`很难，今天搞定它~
+
+```
+const arr = ['天','安','门'];
+const result = arr.reduce((prev,cur,index,array)=>{
+  console.log('出现次数');//只出现2次。
+  return `←${prev}${cur}→`;
+});
+console.log(arr,result);//["天", "安", "门"] "←←天安→门→"
+```
+- 分析：
+   1. 从数组的第二项开始迭代（**第一项不会调用函数**）
+   2. 第二项调用函数的返回值为：`←天安→`
+   3. 将第二项的返回值作为函数第一个参数`prev` ，传递给 数组的第三项。
+   4. 第三项调用函数的返回值为：`←` `←天安→` `门→`，其中`←天安→`：为第上一项的函数返回值。
+   5. 得到结果。
+
+## 运用实例
+```
+//求和（求积同理）
+var arr = [1, 3, 5, 7, 9];
+arr.reduce((prev,cur)=>{
+  return prev + cur
+}); // 25
+```
+```
+//等同于Array.prototype.join(',')
+const arr = ['天','安','门'];
+const result = arr.reduce((prev,cur,index,array)=>{
+  return `${prev},${cur}`;
+});
+const result2 = arr.join(',');
+console.log(result,result2);//天,安,门 天,安,门
+```
