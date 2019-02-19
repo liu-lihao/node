@@ -32,7 +32,7 @@ JavaScript高级程序设计（第3版）非扫描版.pdf
 <link rel="stylesheet" href="./md.default.css">
 <body>
     <div id="box">
-        <headerr @click.native='headertest'></headerr>
+        <headerr></headerr>
         <div class="wrap">
             <ul class="wrap_ul" v-show="!losContentFlag">
                 <div v-for="(n,index) in filename" :key="index" :class="index == 0 ? '' : 'side'">
@@ -58,9 +58,8 @@ JavaScript高级程序设计（第3版）非扫描版.pdf
             </ul>
             <div v-show="losContentFlag" class="losc">
                 <div class="box-marked" v-html="this.losContent" v-show="md_flag"></div>
-                <img :src="losContent_img_src" alt="" v-show="losContent_img">
-                {{(losContent_img || md_flag) ? "" : this.losContent}}
-                
+                <img :src="img_flag ? this.losContent : ''" v-show="img_flag" alt="图片异常">
+                <div v-show="!(img_flag || md_flag)" v-html="losContent"></div>
             </div>
         </div>
         <footerr :los-content-flag="losContentFlag" @returntolist="returntolist"></footerr>

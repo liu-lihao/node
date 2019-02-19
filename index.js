@@ -2,9 +2,7 @@ function c() {
     console.log.apply(this, arguments);
 };
 Vue.component("footerr", {
-    template: `<div class="footerr" @click="returnToList">
-利豪所有<br>{{this.footerrContent}}
-</div>`,
+    template: `<div class="footerr" @click="returnToList">利豪所有<br>{{this.footerrContent}}</div>`,
     props:['losContentFlag'],
     computed:{
         footerrContent(){
@@ -25,17 +23,16 @@ Vue.component("footerr", {
 var box = new Vue({
     el: "#box",
     data: {
-        filename: [],
-        target: '',
-        touchflag: null,
-        blackflag: false,
-        blackcontent: '',
-        losContentFlag: false,
-        losContent:'',
-        losContent_img:false,
-        losContent_img_src:'',
-        md_flag : false,
-        losContent_md: ''
+        filename: [],//所有文件名(解析index.html上面的字符串)
+        target: '',//跳转路径
+        blackflag: false,//黑色遮罩flag
+        blackcontent: '',//黑色内容
+        losContentFlag: false,//显示缓存flag
+        losContent:'',//缓存内容
+        img_flag:false,//缓存图片flag
+        md_flag : false,//md格式文件flag
+        allow_word : ['txt','mdllh'],//允许的文字格式
+        allow_img : ['png','webp','jpg','gif','bmp','jpeg']//允许的图片格式
     },
     components: {
         headerr: {
@@ -71,17 +68,13 @@ var box = new Vue({
         },
         addlos(index) {
             const temp = this.filename[index].title;
-            console.log(temp);
-            console.log(this.checkFileNameType(temp));
             if(this.checkFileNameType(temp)=="img"){
                 this.imgToBese64(this.target + temp).then(res=>{
                     localStorage.setItem(temp,res);
                     this.filename[index].islos = true;
                 });
             }else {
-                
                 this.ajax('get',this.target + temp).then((res) =>{
-
                     localStorage.setItem(temp,res);
                     this.filename[index].islos = true;
                 }).catch( (res)=>{
@@ -111,22 +104,20 @@ var box = new Vue({
                 this.appearBlack('长按左边序号进行缓存哦(目前仅支持txt/md/图片)');
             }
         },
-        headertest(){
-            console.log(localStorage);
-        },
         handlerA(obj){
             const temp = this.filename[obj.index].title;
             if(obj.islos){
-                if(this.checkFileNameType(temp) == "img"){
-                    this.losContent_img = true;
-                    this.losContent_img_src = localStorage.getItem(temp);
-                }else{
-                    if(/\.mdllh$/.test(temp)){
-                        this.md_flag = true;
-                        this.losContent = marked(localStorage.getItem(temp));
-                    }else{
-                        this.losContent = localStorage.getItem(temp);
-                    }
+                //如果缓存了
+                if(/\.mdllh$/.test(temp)){
+                    //MD格式(由于GitHub不允许获取.md格式文件，这里统一将格式改为mdllh)
+                    this.md_flag = true;
+                    this.losContent = marked(localStorage.getItem(temp));
+                }else if(this.checkFileNameType(temp) == "img"){
+                    //如果该文件类型是图片
+                    this.img_flag = true;
+                    this.losContent = localStorage.getItem(temp);
+                }else {
+                    this.losContent = localStorage.getItem(temp).replace(/\n|\r\n/g,"<br/>");
                 }
                 this.losContentFlag = true;
                 if(localStorage.getItem('firstlosc') == null){
@@ -134,30 +125,29 @@ var box = new Vue({
                     this.appearBlack('点击底部返回~');
                 };
             }else {
+                //没缓存就跳转
                 window.open(this.target + temp);
             }
         },
         returntolist(){
+            //初始化内容
             this.losContentFlag=false;
             this.losContent='';
-            this.losContent_img=false;
-            this.losContent_img_src='';
+            this.img_flag=false;
             this.md_flag = false;
         },
         checkFileNameType(temp){
             //返回 true (txt/md)、 img(图片格式) 、 false（双非）
-            const lowercase_type = /.(\w+)$/.exec(temp)[1].toLocaleLowerCase;
-            const allow_word = ['txt','mdllh'];
-            const allow_img = ['png','webp','jpg','gif','bmp','jpeg'];
+            const lowercase_type = /.(\w+)$/.exec(temp)[1].toLocaleLowerCase();
             let allow_flag = false; 
-            allow_word.forEach(item=>{
-                if( item.toLocaleLowerCase == lowercase_type){
+            this.allow_word.forEach(item=>{
+                if( item.toLocaleLowerCase() == lowercase_type){
                     allow_flag = true;
                 }
             });
             if(!allow_flag){
-                allow_img.forEach(item=>{
-                    if( item.toLocaleLowerCase == lowercase_type){
+                this.allow_img.forEach(item=>{
+                    if( item.toLocaleLowerCase() == lowercase_type){
                         allow_flag = 'img';
                     }
                 });
