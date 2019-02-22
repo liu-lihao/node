@@ -57,6 +57,7 @@ html, body, #box, .wrap_ul {
     line-height: 0.4rem;
     text-align: center;
     margin: 0 0.3rem;
+    user-select: none;
 }
 .bg2 {
     background-color: green;
