@@ -42,7 +42,7 @@ ajax(method,url,content) {
             }
         };
         ajax.open(method,url);
-        ajax.send();
+        ajax.send(content);
     });
 }
 //使用方法：
@@ -51,5 +51,48 @@ ajax('GET/POST','接口','参数').then(res=>{
 }).catch(res=>{
     console.log(res);//获得失败结果
 })
+```
+---
+## vue-cli3 + axios 实现跨域
+```
+//新建vue.config.js
+module.exports = {
+  publicPath: '/',
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'https://ifi.bmece.com/api/stadium',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
+    }
+  }
+}
+```
+
+```
+//引入并配置axios
+import Axios from "axios"
+Vue.prototype.$axios = Axios;
+Vue.prototype.HOST = "/api";
+```
+```
+//使用
+const url = this.HOST + "/getStadiumList"
+this.$axios.get(url, {
+                params: {
+                    pageNum: 2,
+                    pageSize: 3,
+                    serverId:1
+                }
+            })
+            .then(res => {
+                console.log('跨域',res);
+            })
+            .catch(error => {
+                console.log('跨域',error);
+            });
 ```
 ---
