@@ -63,7 +63,7 @@ var box = new Vue({
                     }
                 };
                 ajax.open(method,url);
-                ajax.send();
+                ajax.send(content);
             });
         },
         addlos(index) {
@@ -187,6 +187,11 @@ var box = new Vue({
             }
             return item
         });
+        // this.ajax('GET','https://liu-lihao.github.io/node/README.md').then( res => {
+        //     console.log(res);
+        // }).catch( res => {
+        //     console.log(res);
+        // });
     },
     mounted(){
         if(localStorage.getItem('firstopen') == null){
