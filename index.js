@@ -20,7 +20,7 @@ Vue.component("footerr", {
         }
     }
 });
-var box = new Vue({
+const box = new Vue({
     el: "#box",
     data: {
         filename: [],//所有文件名(解析index.html上面的字符串)
@@ -31,7 +31,7 @@ var box = new Vue({
         losContent:'',//缓存内容
         img_flag:false,//缓存图片flag
         md_flag : false,//md格式文件flag
-        allow_word : ['txt','mdllh'],//允许的文字格式
+        allow_word : ['txt','md'],//允许的文字格式
         allow_img : ['png','webp','jpg','gif','bmp','jpeg']//允许的图片格式
     },
     components: {
@@ -108,8 +108,7 @@ var box = new Vue({
             const temp = this.filename[obj.index].title;
             if(obj.islos){
                 //如果缓存了
-                if(/\.mdllh$/.test(temp)){
-                    //MD格式(由于GitHub不允许获取.md格式文件，这里统一将格式改为mdllh)
+                if(/\.md$/.test(temp)){
                     this.md_flag = true;
                     this.losContent = marked(localStorage.getItem(temp));
                 }else if(this.checkFileNameType(temp) == "img"){
@@ -187,11 +186,6 @@ var box = new Vue({
             }
             return item
         });
-        // this.ajax('GET','https://liu-lihao.github.io/node/README.md').then( res => {
-        //     console.log(res);
-        // }).catch( res => {
-        //     console.log(res);
-        // });
     },
     mounted(){
         if(localStorage.getItem('firstopen') == null){

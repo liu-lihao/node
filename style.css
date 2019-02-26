@@ -3,35 +3,31 @@ body, ul, li {
     margin: 0;
 }
 html {
-    font-size: 50px;
+    font-size: 70px;
 }
-body {
-    font-size: 0.5rem;
-    position: relative;
-}
-.footerr, .headerr {
+.headerr, .footerr {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 1rem;
+    height: 50px;
     color: #fff;
     text-align: center;
 }
-.footerr {
-    background-color: rgb(49, 49, 49);
-    font-size: 0.25rem;
-}
 .headerr {
     background-color: rgb(77, 75, 75);
-    font-size: 0.30rem;
+    font-size: 18px;
     font-weight: bold;
+}
+.footerr {
+    background-color: rgb(49, 49, 49);
+    font-size: 15px;
 }
 html, body, #box, .wrap_ul {
     height: 100%;
 }
 .wrap {
-    height: calc(100% - 2rem);
+    height: calc(100% - 100px);
     overflow: hidden;
 }
 .wrap_ul {
@@ -58,6 +54,7 @@ html, body, #box, .wrap_ul {
     text-align: center;
     margin: 0 0.3rem;
     user-select: none;
+    flex:0 0 auto;
 }
 .bg2 {
     background-color: green;
@@ -86,6 +83,7 @@ html, body, #box, .wrap_ul {
     justify-content: center;
     user-select: none;
     cursor: pointer;
+    font-size: 20px;
 }
 .side {
     position: relative;
