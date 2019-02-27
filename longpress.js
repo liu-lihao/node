@@ -12,9 +12,8 @@
         }      
         // 定义变量
         let pressTimer = null;
-        let fag = binding.arg === undefined? 300: binding.arg;
+        let fag = binding.arg === undefined? 600: binding.arg;
         // 定义函数处理程序
-        // 创建计时器（ 1秒后执行函数 ）
         let start = (e) => {
           if (e.type === 'click' && e.button !== 0) {
             return;
