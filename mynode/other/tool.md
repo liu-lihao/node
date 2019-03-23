@@ -2,7 +2,7 @@
 
 ## 图片转base64
 
-```
+```javascript
 imgToBese64(url){
     let canvas = document.createElement('canvas'),
     ctx = canvas.getContext('2d'),
@@ -28,7 +28,7 @@ imgToBese64('https://xxx.png').then(res=>{
 ---
 ## Ajax
 
-```
+```javascript
 ajax(method,url,content) {
     let ajax = new XMLHttpRequest();
     return new Promise( (resolve, reject) => {
@@ -54,7 +54,7 @@ ajax('GET/POST','接口','参数').then(res=>{
 ```
 ---
 ## vue-cli3 + axios 实现跨域
-```
+```javascript
 //新建vue.config.js
 module.exports = {
   publicPath: '/',
@@ -72,13 +72,13 @@ module.exports = {
 }
 ```
 
-```
+```javascript
 //引入并配置axios
 import Axios from "axios"
 Vue.prototype.$axios = Axios;
 Vue.prototype.HOST = "/api";
 ```
-```
+```javascript
 //使用
 const url = this.HOST + "/getStadiumList"
 this.$axios.get(url, {
