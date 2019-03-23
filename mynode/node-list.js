@@ -1,4 +1,5 @@
 const node_list = {
+  baseUrl: "https://liu-lihao.github.io/node/mynode/",
   "ES6": [
     "[es6]1.ECMAScript.6.简介.md",
     "[es6]2.let和const命令.md",
