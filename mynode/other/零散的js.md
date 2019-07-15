@@ -150,3 +150,34 @@ p.then(multiply)
 // calculating 915546564 + 915546564...
 // Got value: 1831093128
 ```
+
+# Array.sort()
+
+一直以为它的作用仅仅是纯数字数组排序，直到最近才发现我错了，原来它对不太多的各种数据排序都很方便。
+
+- 默认情况：
+ 1. 默认排序规则：字符串方式
+ 2. 默认排序顺序：递增
+ 3. Demo：
+    ```javascript
+    [2,6,4,10].sort(); //  [10, 2, 4, 6]
+    ```
+- 传入比较函数：
+ 1. 比较函数：
+    ```javascript
+    function compare (value1,value2){//递增排序
+      if(value1 < value2) return -1;
+      if(value1 > value2) return 1;
+      return 0;
+      //如果希望小的数字在左边(arr[0]最小),则对value1来说，小的话要放到左边去，返回<0的数。
+      //如果希望大的数字在左边(arr[0]最大),则对value1来说，小的话要放到右边去，返回>0的数。
+      //相等的话返回0。
+      //总的来说：两个参数比较，随便返回-1/1，0不用管，不是想要的顺序就换了一下-1/1就行了。
+    }
+    ```
+ 2. Demo：
+    ```javascript
+    let arr2 = [{"num":2},{"num":6},{"num":4},{"num":10}];
+    arr2.sort((v1,v2) =>v1.num - v2.num);
+    console.log(arr2);//[{"num":2},{"num":4},{"num":6},{"num":10}]
+    ```
